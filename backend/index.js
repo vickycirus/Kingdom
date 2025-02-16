@@ -10,10 +10,11 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Backend is running!");
 });
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+// ✅ Fixed MongoDB connection (removed deprecated options)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log(err));
+    .catch(err => console.log("MongoDB Connection Error:", err));
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
